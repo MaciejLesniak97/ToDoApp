@@ -25,7 +25,7 @@ public class AddTask implements IService{
                 String[] parameters = userInput.split(",");
 
                 if(parameters.length == 4) {
-                    if (ToDoList.tasks.get(parameters[0]) == null) {
+                    if (!ToDoList.tasks.containsKey(Integer.parseInt(parameters[0]))) {
                         return userInput;
                     } else {
                         System.out.println("Task with this ID exists, try another id: ");
@@ -43,5 +43,6 @@ public class AddTask implements IService{
     public void executeService(String command) {
         String[] parameters = command.split(",");
         Task task = Task.buildTask(Integer.parseInt(parameters[0]), parameters[1], parameters[2], Integer.parseInt(parameters[3]));
+        ToDoList.tasks.put(task.getId(), task);
     }
 }
